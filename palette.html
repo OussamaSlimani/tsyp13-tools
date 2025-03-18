@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TSYP 13 Graphical Palette Color</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        text-align: center;
+      }
+      .color-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+      }
+      .color-box {
+        width: 135px;
+        height: 135px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: transform 0.2s;
+      }
+      .color-box:hover {
+        transform: scale(1.03);
+      }
+      .hex-box {
+        position: absolute;
+        bottom: 10px;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 5px 10px;
+        font-size: 14px;
+        border-radius: 4px;
+        transition: all 0.3s;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="mt-4">TSYP 13 Graphical Palette Color</h1>
+
+    <div class="color-container" id="color-palette">
+      <!-- Color boxes will be generated here -->
+    </div>
+
+    <script>
+      // Ordered colors from darkest to lightest
+      const colors = [
+        "#002224", // Deep Black Green
+        "#001B1C", // Very Dark Green
+        "#031B1D", // Charcoal Green
+        "#02282B", // Dark Teal
+        "#01282A", // Very Dark Teal
+        "#013F4A", // Dark Slate Blue
+        "#034551", // Dark Cyan
+        "#014F5A", // Dark Aqua
+        "#034953", // Dark Greenish Cyan
+        "#06565B", // Gunmetal
+        "#0C5254", // Greenish Gray
+        "#0E6567", // Sea Green
+        "#013C3C", // Charcoal Green
+        "#044C4D", // Dark Sea Green
+        "#024E53", // Deep Sea Green
+        "#014C54", // Greenish Blue
+        "#046873", // Teal
+        "#037A7F", // Deep Teal
+        "#005D68", // Dark Cyan
+        "#255A59", // Pine Green
+        "#3D868D", // Steel Teal
+        "#48989E", // Light Teal
+        "#48A2B0", // Light Cyan
+        "#87928A", // Olive Gray
+        "#9D9181", // Dark Khaki
+        "#A46F52", // Brown
+        "#C3BDAE", // Light Taupe
+        "#F7E6CA", // Light Beige
+      ];
+
+      const colorPalette = document.getElementById("color-palette");
+
+      colors.forEach((color) => {
+        const colorBox = document.createElement("div");
+        colorBox.classList.add("color-box");
+        colorBox.style.backgroundColor = color;
+
+        const hexBox = document.createElement("div");
+        hexBox.classList.add("hex-box");
+        hexBox.textContent = color;
+        hexBox.dataset.originalText = color;
+
+        colorBox.appendChild(hexBox);
+
+        colorBox.addEventListener("mouseover", () => {
+          hexBox.textContent = "Click to Copy";
+        });
+
+        colorBox.addEventListener("mouseout", () => {
+          hexBox.textContent = hexBox.dataset.originalText;
+        });
+
+        colorBox.addEventListener("click", () => {
+          navigator.clipboard.writeText(color).then(() => {
+            hexBox.textContent = "Copied!";
+            setTimeout(() => {
+              hexBox.textContent = hexBox.dataset.originalText;
+            }, 1000);
+          });
+        });
+
+        colorPalette.appendChild(colorBox);
+      });
+    </script>
+  </body>
+</html>
