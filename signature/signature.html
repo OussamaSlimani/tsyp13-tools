@@ -61,9 +61,49 @@
       .signature.active {
         display: block;
       }
+
+      .instructions {
+        background: #ffffff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 500px;
+        margin: 20px auto;
+      }
+      .instructions h3 {
+        color: #037a7f;
+        font-size: 18px;
+      }
+      .instructions ol {
+        padding-left: 20px;
+      }
+      .instructions li {
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
     </style>
   </head>
   <body>
+    <div class="instructions">
+      <h3>How to Add Your Signature in Gmail</h3>
+      <ol>
+        <li>Click the <strong>Copy Signature</strong> button.</li>
+        <li>Go to Gmail.</li>
+        <li>
+          Click on <strong>Settings</strong> (gear icon) >
+          <strong>See all settings</strong>.
+        </li>
+        <li>
+          In the <strong>General</strong> tab, scroll down to
+          <strong>Signature</strong>.
+        </li>
+        <li>Click the <strong>Create new</strong> button.</li>
+        <li>Give your signature a name.</li>
+        <li>Paste your signature in the text box.</li>
+        <li>Scroll down and click <strong>Save Changes</strong>.</li>
+      </ol>
+    </div>
+
     <div class="controls">
       <select id="signatureSelector">
         <option value="">Select a team member</option>
@@ -313,7 +353,6 @@
         </table>
       </div>
 
-      <!-- Add all other signatures following the same pattern -->
       <!-- Nadine Jellali -->
       <div id="nadine" class="signature">
         <table
@@ -1085,7 +1124,7 @@
       </div>
 
       <!-- Mohamed Mahdi Gouiaa -->
-      <div id="mahdi" class="signature">
+      <div id="gouiaa" class="signature">
         <table
           style="
             width: 100%;
@@ -1110,7 +1149,7 @@
                 "
               >
                 <img
-                  src="http://tsyp13-tools.onrender.com/signature/mahdi.png"
+                  src="http://tsyp13-tools.onrender.com/signature/mzid.png"
                   alt="Mohamed Mahdi Gouiaa"
                   style="display: block; height: 100%; border-radius: 10px"
                 />
