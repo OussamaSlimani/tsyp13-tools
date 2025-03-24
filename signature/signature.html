@@ -3,158 +3,2102 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Copy Email Signature</title>
+    <title>IEEE TSYP13 Signature Tool</title>
     <style>
       body {
         font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 20px;
-      }
-      .signature-container {
-        display: inline-block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
         padding: 20px;
-        border: 1px solid #d9d9d9;
-        border-radius: 12px;
-        box-shadow: 0 6px 12px rgba(0, 34, 36, 0.2);
-        background: #ffffff;
-        text-align: left;
+        background-color: #f5f5f5;
       }
-      button {
-        margin-top: 20px;
+      .container {
+        width: 100%;
+        max-width: 600px;
+        margin-bottom: 30px;
+      }
+      .controls {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto 30px;
+      }
+      select {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      .copy-btn {
+        background-color: #037a7f;
+        color: white;
+        border: none;
         padding: 10px 20px;
         font-size: 16px;
-        color: white;
-        background: #037a7f;
-        border: none;
         border-radius: 5px;
         cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .copy-btn:hover {
+        background-color: #025b5f;
+      }
+      .success-message {
+        color: #037a7f;
+        font-weight: bold;
+        margin-top: 10px;
+        height: 20px;
+        text-align: center;
+      }
+      .signature {
+        display: none;
+      }
+      .signature.active {
+        display: block;
       }
     </style>
   </head>
   <body>
-    <div class="signature-container" id="signature">
-      <table
-        style="
-          width: 100%;
-          max-width: 500px;
-          font-family: 'Arial', sans-serif;
-          border-collapse: separate;
-        "
-      >
-        <tr>
-          <td style="vertical-align: middle; text-align: center">
-            <div
-              style="
-                height: 120px;
-                border-right: 1px solid #037a7f;
-                padding-right: 10px;
-                display: inline-block;
-              "
-            >
-              <img
-                src="signature/mahdi.png"
-                alt="Mohamed Mahdi Bradai"
-                style="
-                  display: block;
-                  height: 100%;
-                  border-radius: 10px;
-                  box-shadow: 0 4px 6px rgba(0, 34, 36, 0.2);
-                "
-              />
-            </div>
-          </td>
-          <td style="vertical-align: middle; padding-left: 10px">
-            <p
-              style="
-                margin: 0;
-                font-size: 15px;
-                font-weight: bold;
-                color: #037a7f;
-              "
-            >
-              Mohamed Mahdi Bradai
-            </p>
-            <p
-              style="
-                margin: 4px 0;
-                font-size: 13px;
-                color: #444;
-                font-weight: 600;
-              "
-            >
-              Chair
-            </p>
-            <p style="margin: 4px 0; font-size: 13px; color: #666">
-              IEEE Tunisian Student &amp; Young Professional 13 Congress
-            </p>
-            <p
-              style="
-                margin: 6px 0;
-                font-size: 12px;
-                color: #444;
-                line-height: 1.4;
-              "
-            >
-              <strong style="color: #037a7f">Phone: </strong
-              ><a
-                href="tel:+21655074545"
-                style="color: #444; text-decoration: none"
-                >+216 55 074 545</a
-              >
-            </p>
-            <p
-              style="
-                margin: 6px 0;
-                font-size: 12px;
-                color: #444;
-                line-height: 1.4;
-              "
-            >
-              <strong style="color: #037a7f">Email: </strong
-              ><a
-                href="mailto:mohamed_mahdi_bradai@ieee.org"
-                style="color: #444; text-decoration: none"
-                >mohamed_mahdi_bradai@ieee.org</a
-              >
-            </p>
-            <p
-              style="
-                margin: 6px 0;
-                font-size: 12px;
-                color: #444;
-                line-height: 1.4;
-              "
-            >
-              <strong style="color: #037a7f">LinkedIn: </strong
-              ><a
-                href="https://www.linkedin.com/in/mohammed_mahdi_bradai"
-                target="_blank"
-                style="color: #444; text-decoration: none"
-                >Mahdi Bradai</a
-              >
-            </p>
-          </td>
-        </tr>
-      </table>
+    <div class="controls">
+      <select id="signatureSelector">
+        <option value="">Select a team member</option>
+        <option value="mahdi">Mohamed Mahdi Bradai (Chair)</option>
+        <option value="siwar">Siwar Gouirah (Vice Chair)</option>
+        <option value="nadine">Nadine Jellali (Secretary)</option>
+        <option value="oussama">Oussama Slimani (24/7 Manager)</option>
+        <option value="iheb">Iheb Charfeddine (Treasurer)</option>
+        <option value="bilel">Bilel Djemel (Planning Manager)</option>
+        <option value="amir">Amir Abid (Sponsoring Manager)</option>
+        <option value="hedi">Mohamed Hedi Samet (Media Manager)</option>
+        <option value="abir">Abir Grati (Media Manager)</option>
+        <option value="gouiaa">Mohamed Mahdi Gouiaa (Design Manager)</option>
+        <option value="wiem">Wiem Boujelben (Design Manager)</option>
+        <option value="minyar">Minyar Bougdar (Logistics Manager)</option>
+        <option value="marwa">Marwa Chaari (Logistics Manager)</option>
+        <option value="chams">
+          Chams Assil Chelly (Challenger Coordinator)
+        </option>
+        <option value="hassen">Hassen Rekik (Challenges Coordinator)</option>
+        <option value="tasnim">Tasnim Elleuch (Ambassadors Coordinator)</option>
+        <option value="hend">Hend belkhiria (Funding Coordinator)</option>
+        <option value="yessine">Yessine Fakhfakh (Videos Manager)</option>
+      </select>
+      <button id="copyButton" class="copy-btn">Copy Signature</button>
+      <div id="successMessage" class="success-message"></div>
     </div>
-    <button onclick="copySignature()">Copy Signature</button>
+
+    <div class="container">
+      <!-- Mohamed Mahdi Bradai -->
+      <div id="mahdi" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/mahdi.png"
+                  alt="Mohamed Mahdi Bradai"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Mohamed Mahdi Bradai
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Chair
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21628675568"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 28 675 568
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:mohammed_mahdi_bradai@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  mohammed_mahdi_bradai@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/mohammed-mahdi-bradai-b079b9269/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Mahdi Bradai
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Siwar Gouirah -->
+      <div id="siwar" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/siwar.png"
+                  alt="Siwar Gouirah"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Siwar Gouirah
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Vice Chair
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21625245345"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 25 245 345
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:gouirah.siwar@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  gouirah.siwar@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/siwar-gouirah/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Siwar Gouirah
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Add all other signatures following the same pattern -->
+      <!-- Nadine Jellali -->
+      <div id="nadine" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/nadine.png"
+                  alt="Nadine Jellali"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Nadine Jellali
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Secretary
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21629844774"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 29 844 774
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:nadinejellali@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  nadinejellali@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/jellali-nadine/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Nadine Jellali
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Oussama Slimani -->
+      <div id="oussama" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/oussama.png"
+                  alt="Oussama Slimani"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Oussama Slimani
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                24/7 Manager
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21653381375"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 53 381 375
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:oussama.slimani@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  oussama.slimani@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/oussama-slimani/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Oussama Slimani
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Iheb Charfeddine -->
+      <div id="iheb" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/iheb.png"
+                  alt="Iheb Charfeddine"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Iheb Charfeddine
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Treasurer
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21626505730"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 26 505 730
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:iheb.charfeddine@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  iheb.charfeddine@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/iheb-charfeddine/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Iheb Charfeddine
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Bilel Djemel -->
+      <div id="bilel" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/bilel.png"
+                  alt="Bilel Djemel"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Bilel Djemel
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Planning Manager
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21626589540"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 26 589 540
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:bilel.djemel@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  bilel.djemel@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/bilel-djemel/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Bilel Djemel
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Amir Abid -->
+      <div id="amir" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/amir.png"
+                  alt="Amir Abid"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Amir Abid
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Sponsoring Manager
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21626337322"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 26 337 322
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:amirabid@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  amirabid@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/amir-abid/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Amir Abid
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Mohamed Hedi Samet -->
+      <div id="hedi" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/hedi.png"
+                  alt="Mohamed Hedi Samet"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Mohamed Hedi Samet
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Media Manager
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21620084929"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 20 084 929
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:hedi.samet@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  hedi.samet@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/samet-mohamed-hedi/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Mohamed Hedi Samet
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Abir Grati -->
+      <div id="abir" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/abir.png"
+                  alt="Abir Grati"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Abir Grati
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Media Manager
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21628339734"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 28 339 734
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:abir.grati@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  abir.grati@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/abir-grati-/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Abir Grati
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Mohamed Mahdi Gouiaa -->
+      <div id="mahdi" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/mahdi.png"
+                  alt="Mohamed Mahdi Gouiaa"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Mohamed Mahdi Gouiaa
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Design Manager
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21620002594"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 20 002 594
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:mahdigouiaa2001@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  mahdigouiaa2001@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/gouiaa-mohamed-mahdi/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Mohamed Mahdi Gouiaa
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Wiem Boujelben -->
+      <div id="wiem" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/wiem.png"
+                  alt="Wiem Boujelben"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Wiem Boujelben
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Design Manager
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21622020434"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 22 020 434
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:wiemboujelben@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  wiemboujelben@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/wiem-boujelben-9b5544286/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Wiem Boujelben
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Minyar Bougdar -->
+      <div id="minyar" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/minyar.png"
+                  alt="Minyar Bougdar"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Minyar Bougdar
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Logistics Manager
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21623202091"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 23 202 091
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:bougdar.minyar@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  bougdar.minyar@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/minyarbougdar/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Minyar Bougdar
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Marwa Chaari -->
+      <div id="marwa" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/marwa.png"
+                  alt="Marwa Chaari"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Marwa Chaari
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Logistics Manager
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21650590630"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 50 590 630
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:marwachaari@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  marwachaari@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/chaari-marwa/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Marwa Chaari
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Chams Assil Chelly -->
+      <div id="chams" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/chams.png"
+                  alt="Chams Assil Chelly"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Chams Assil Chelly
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Challenger Coordinator
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21628680153"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 28 680 153
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:chelly.chamsassil65@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  chelly.chamsassil65@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/chelly-chams-assil-b3552b258/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Chams Assil Chelly
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Hassen Rekik -->
+      <div id="hassen" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/hassen.png"
+                  alt="Hassen Rekik"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Hassen Rekik
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Challenges Coordinator
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:hassen.rekik@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  hassen.rekik@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/rekik-hassen/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Hassen Rekik
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Tasnim Elleuch -->
+      <div id="tasnim" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/tasnim.png"
+                  alt="Tasnim Elleuch"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Tasnim Elleuch
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Ambassadors Coordinator
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21650402494"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 50 402 494
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:tasnim.eleuch@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  tasnim.eleuch@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/tasnim-elleuch-6043a629a/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Tasnim Elleuch
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Hend belkhiria -->
+      <div id="hend" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/hend.png"
+                  alt="Hend belkhiria"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Hend belkhiria
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Funding Coordinator
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Phone: </strong>
+                <a
+                  href="tel:+21653456785"
+                  style="color: #444; text-decoration: none"
+                >
+                  +216 53 456 785
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:hendbelkhiria@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  hendbelkhiria@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/hend-belkhiria/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Hend belkhiria
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Yessine Fakhfakh -->
+      <div id="yessine" class="signature">
+        <table
+          style="
+            width: 100%;
+            max-width: 500px;
+            font-family: 'Arial', sans-serif;
+            border-collapse: separate;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #d2d2d2;
+            margin: 0 auto;
+          "
+        >
+          <tr>
+            <td style="vertical-align: middle; text-align: center">
+              <div
+                style="
+                  height: 120px;
+                  border-right: 1px solid #037a7f;
+                  padding-right: 10px;
+                  display: inline-block;
+                "
+              >
+                <img
+                  src="http://tsyp13-tools.onrender.com/signature/yessine.png"
+                  alt="Yessine Fakhfakh"
+                  style="display: block; height: 100%; border-radius: 10px"
+                />
+              </div>
+            </td>
+            <td style="vertical-align: middle; padding-left: 10px">
+              <p
+                style="
+                  margin: 0;
+                  font-size: 15px;
+                  font-weight: bold;
+                  color: #037a7f;
+                "
+              >
+                Yessine Fakhfakh
+              </p>
+              <p
+                style="
+                  margin: 4px 0;
+                  font-size: 13px;
+                  color: #444;
+                  font-weight: 600;
+                "
+              >
+                Videos Manager
+              </p>
+              <p style="margin: 4px 0; font-size: 13px; color: #666">
+                IEEE Tunisian Student &amp; Young Professional 13 Congress
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">Email: </strong>
+                <a
+                  href="mailto:yessinefakhfakh@ieee.org"
+                  style="color: #444; text-decoration: none"
+                >
+                  yessinefakhfakh@ieee.org
+                </a>
+              </p>
+              <p
+                style="
+                  margin: 6px 0;
+                  font-size: 12px;
+                  color: #444;
+                  line-height: 1.4;
+                "
+              >
+                <strong style="color: #037a7f">LinkedIn: </strong>
+                <a
+                  href="https://www.linkedin.com/in/yessine-fakhfakh-470145298/"
+                  target="_blank"
+                  style="color: #444; text-decoration: none"
+                >
+                  Yessine Fakhfakh
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
     <script>
-      function copySignature() {
-        const signatureContainer = document.getElementById("signature");
-        const range = document.createRange();
-        const selection = window.getSelection();
+      document
+        .getElementById("signatureSelector")
+        .addEventListener("change", function () {
+          // Hide all signatures
+          document.querySelectorAll(".signature").forEach((sig) => {
+            sig.classList.remove("active");
+          });
 
-        range.selectNodeContents(signatureContainer);
-        selection.removeAllRanges();
-        selection.addRange(range);
-        document.execCommand("copy");
-        selection.removeAllRanges();
+          // Show selected signature
+          const selected = this.value;
+          if (selected) {
+            document.getElementById(selected).classList.add("active");
+          }
+        });
 
-        alert(
-          "Signature copied! You can now paste it into Gmail's signature settings."
-        );
-      }
+      document
+        .getElementById("copyButton")
+        .addEventListener("click", function () {
+          const selected = document.getElementById("signatureSelector").value;
+          if (!selected) {
+            document.getElementById("successMessage").textContent =
+              "Please select a team member first";
+            setTimeout(() => {
+              document.getElementById("successMessage").textContent = "";
+            }, 3000);
+            return;
+          }
+
+          const signatureElement = document.getElementById(selected);
+
+          // Create a range and select the signature
+          const range = document.createRange();
+          range.selectNode(signatureElement);
+
+          // Clear any current selection
+          window.getSelection().removeAllRanges();
+
+          // Add the signature to the selection
+          window.getSelection().addRange(range);
+
+          // Copy the selected content
+          document.execCommand("copy");
+
+          // Clear the selection
+          window.getSelection().removeAllRanges();
+
+          // Show success message
+          const successMessage = document.getElementById("successMessage");
+          successMessage.textContent = "Signature copied to clipboard!";
+
+          // Hide the message after 3 seconds
+          setTimeout(function () {
+            successMessage.textContent = "";
+          }, 3000);
+        });
     </script>
   </body>
 </html>
